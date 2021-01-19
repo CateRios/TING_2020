@@ -20,7 +20,7 @@
       />
 
       <!-- Company name -->
-      <v-toolbar-title class="accent--text text-h4 ma-3">{{ companyTitle }}</v-toolbar-title>
+      <v-toolbar-title class="accent--text ma-3 companyTitle">{{ companyTitle }}</v-toolbar-title>
 
       <!-- Navigation menu options -->
       <v-toolbar-items class="hidden-xs-only">
@@ -87,6 +87,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+.companyTitle {
+  font-size: xx-large;
+}
 
 </style>

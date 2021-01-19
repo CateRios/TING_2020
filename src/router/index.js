@@ -1,23 +1,19 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-const routerOptions = [
-  { path: "/", component: "Landing" },
-  { path: "/login", component: "Login" },
-  { path: "/roomHome", component: "Home", meta: { requiresAuth: true } },
-  { path: "*", component: "NotFound" }
-];
+const routes = [
+    // ---- Views
+    {path: "/", component: () => import('../views/Index')},
 
-const routes = routerOptions.map(route => {
-  return {
-    ...route,
-    component: () => import(`../components/${route.component}.vue`)
-  };
-});
+    // ---- Components
+    {path: "/login", component: () => import('../components/Login')},
+    {path: "/roomHome", component: () => import('../components/Home'), meta: {requiresAuth: true}},
+    {path: "*", component: () => import('../components/NotFound')}
+];
 
 Vue.use(VueRouter);
 
 export default new VueRouter({
-  mode: "history",
-  routes
+    mode: "history",
+    routes
 });

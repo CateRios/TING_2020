@@ -29,3 +29,13 @@
     </v-card>
   </v-container>
 </template>
+
+<script>
+export default {
+  name: "Starters"
+}
+</script>
+
+<style scoped>
+
+</style>

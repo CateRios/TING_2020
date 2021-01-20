@@ -1,14 +1,14 @@
 <template>
 
-  <v-app>
+  <v-app class="app">
 
     <!-- Header -->
     <Header v-bind:company-title="companyTitle" v-bind:company-logo="companyLogo"/>
 
     <!-- Page content -->
-    <v-content>
-      <router-view></router-view>
-    </v-content>
+    <v-main>
+      <router-view/>
+    </v-main>
 
     <!-- Footer -->
     <Footer v-bind:company-title="companyTitle"/>
@@ -42,9 +42,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Ruluko&display=swap');
 
 #app {
-  font-family: 'Ruluko', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Ruluko', sans-serif !important;
 }
 
 </style>

@@ -56,4 +56,12 @@ export default {
 
 <style scoped>
 
+.text-body-2 {
+  font-family: 'Ruluko', sans-serif !important;
+}
+
+.text-caption {
+  font-family: 'Ruluko', sans-serif !important;
+}
+
 </style>

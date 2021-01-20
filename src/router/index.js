@@ -5,6 +5,7 @@ const routerOptions = [
   { path: "/", component: "Landing" },
   { path: "/login", component: "Login" },
   { path: "/roomHome", component: "Home", meta: { requiresAuth: true } },
+  { path: "/menu", component: "Menu" },
   { path: "*", component: "NotFound" }
 ];
 

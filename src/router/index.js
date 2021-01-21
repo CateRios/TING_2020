@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 const routes = [
     // ---- Views
     {path: "/", component: () => import('../views/Index')},
+    {path: "/rooms", component: () => import('../views/Rooms')},
 
     // ---- Components
     {path: "/login", component: () => import('../components/Login')},

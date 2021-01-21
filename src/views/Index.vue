@@ -39,11 +39,14 @@ export default {
   },
   data() {
     return {
-      carouselData: [
-        {src: "https://images.unsplash.com/photo-1582719508461-905c673771fd"},
-        {src: "https://images.unsplash.com/photo-1566073771259-6a8506099945"},
-        {src: "https://images.unsplash.com/photo-1548623832-065a018e01ce"}
-      ],
+      carouselData: {
+        height: "92vh",
+        images: [
+          {src: "https://images.unsplash.com/photo-1582719508461-905c673771fd"},
+          {src: "https://images.unsplash.com/photo-1566073771259-6a8506099945"},
+          {src: "https://images.unsplash.com/photo-1548623832-065a018e01ce"}
+        ]
+      },
       features: {
         title:"Lorem Ipsum Dolor",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",

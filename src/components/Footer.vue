@@ -8,7 +8,7 @@
       <v-card-title class="primary text-body-2">
        Copyright © 2021 {{ companyTitle }}. All rights reserved.
 
-        <v-spacer></v-spacer>
+        <v-spacer/>
 
         <!-- Social menu -->
         <v-btn
@@ -16,7 +16,6 @@
             :key="item.title"
             icon
             color="accent"
-            v-bind:href="path"
             target="_blank"
         >
           <v-icon size="24px">mdi-{{ item.icon }}</v-icon>

@@ -14,8 +14,8 @@
       <v-row align-content="center">
 
         <v-col
-            v-for="item in features.items"
-            :key="item"
+            v-for="(item,index) in features.items"
+            :key="index"
             cols="12"
             sm="4"
         >

@@ -45,7 +45,7 @@
     <!-- Nav drawer -->
     <v-navigation-drawer v-model="drawer" app temporary>
       <v-list nav dense>
-        <v-list-item-group v-model="group" active-class="accent--text text--accent-4">
+        <v-list-item-group active-class="accent--text text--accent-4">
 
           <v-list-item
               v-for="item in menuItems"

@@ -2,13 +2,13 @@
 
   <v-carousel
       cycle
-      height="92vh"
+      v-bind:height="carouselData.height"
       hide-delimiter-background
       show-arrows-on-hover
   >
     <!-- Slides -->
     <v-carousel-item
-        v-for="(item,i) in carouselData"
+        v-for="(item,i) in carouselData.images"
         :key="i"
         :src="item.src"
     />

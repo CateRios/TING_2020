@@ -9,6 +9,7 @@ const routes = [
     // ---- Components
     {path: "/login", component: () => import('../components/Login')},
     {path: "/roomHome", component: () => import('../components/Home'), meta: {requiresAuth: true}},
+    {path: "/order", component: () => import('../components/Order')},
     {path: "*", component: () => import('../components/NotFound')}
 ];
 

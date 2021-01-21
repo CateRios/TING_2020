@@ -6,7 +6,7 @@
     </div>
 
     <!--Menu Sections -->
-    <MenuListItem v-bind:menu="menu" />
+    <MenuList v-bind:menu="menu" />
 
     <!--Button-->
     <v-container fluid>
@@ -14,7 +14,7 @@
       <v-flex xs6 sm6 md6 lg6 xl6 offset-xs5 mt-3>
           <v-layout column>
             <v-flex class="text-xs-center" mt-5 mb-5>
-        <v-btn color="accent" large class="btn pa-5">Order</v-btn>
+        <v-btn color="accent" x-large class="btn pa-5 text-h6" to="/order">Order</v-btn>
       </v-flex>
           </v-layout>
       </v-flex>
@@ -25,12 +25,12 @@
 </template>
 
 <script>
-import MenuListItem from "@/components/MenuListItem";
+import MenuList from "@/components/MenuList";
 
 export default {
   name: "Menu",
   components: {
-    MenuListItem,
+    MenuList,
   },
   data() {
     return {
@@ -95,5 +95,5 @@ export default {
 
 .btn {
   font-family: "Ruluko", sans-serif !important;
-}</style
->;
+}
+</style>;

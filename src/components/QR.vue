@@ -4,7 +4,7 @@
     src="https://images.unsplash.com/photo-1541971875076-8f970d573be6"
   >
     <v-container grid-list-md text-xs-center>
-        <v-card color="rgb(255, 255, 255, 0.825)" width="100%" height="55vh" class="center rounded-xl prueba" align="center">
+        <v-card color="rgb(255, 255, 255, 0.825)" width="100%" height="auto" class="center rounded-xl vcard1 pa-5" align="center">
             <v-card-title class="justify-center"><p class="accent--text title" color="accent">Room access</p></v-card-title>
                 <v-img
                 height="27vh"
@@ -40,7 +40,7 @@ export default {
     color: black;
     font-size: 22px;
 }
-.prueba{
+.vcard1{
   margin: 18vh auto;
 }
 

@@ -1,23 +1,46 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import {auth} from "../../firebase";
 
 const routes = [
+
     // ---- Views
+
+    // Without authentication
     {path: "/", component: () => import('../views/Index')},
     {path: "/rooms", component: () => import('../views/Rooms')},
-    {path: "/menu", component: () => import('../views/Menu')},
     {path: "/access", component: () => import('../views/Access')},
 
+    // With authentication
+    {path: "/menu", component: () => import('../views/Menu'), meta: {requiresAuth: true}},
+
     // ---- Components
+
+    // Without authentication
     {path: "/login", component: () => import('../components/Login')},
-    {path: "/roomHome", component: () => import('../components/Home'), meta: {requiresAuth: true}},
-    {path: "/order", component: () => import('../components/Order')},
-    {path: "*", component: () => import('../components/NotFound')}
+    {path: "*", component: () => import('../components/NotFound')},
+
+    // With authentication
+    {path: "/order", component: () => import('../components/Order'), meta: {requiresAuth: true}},
+    {path: "/roomHome", component: () => import('../components/Home'), meta: {requiresAuth: true}}
+
 ];
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+ let router = new VueRouter({
     mode: "history",
     routes
 });
+
+router.beforeEach((to, from, next) => {
+    const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
+
+    if (requiresAuth && !auth.currentUser) {
+        next('/login')
+    } else {
+        next()
+    }
+})
+
+export default router

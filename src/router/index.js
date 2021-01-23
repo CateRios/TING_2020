@@ -17,12 +17,12 @@ const routes = [
     // ---- Components
 
     // Without authentication
-    {path: "/login", component: () => import('../components/Login')},
+    {path: "/login", component: () => import('../views/Login')},
     {path: "*", component: () => import('../components/NotFound')},
 
     // With authentication
     {path: "/order", component: () => import('../components/Order'), meta: {requiresAuth: true}},
-    {path: "/roomHome", component: () => import('../components/Home'), meta: {requiresAuth: true}}
+    {path: "/home", component: () => import('../components/Home'), meta: {requiresAuth: true}}
 
 ];
 
@@ -34,13 +34,13 @@ Vue.use(VueRouter);
 });
 
 router.beforeEach((to, from, next) => {
-    const requiresAuth = to.matched.some(x => x.meta.requiresAuth)
-
-    if (requiresAuth && !auth.currentUser) {
-        next('/login')
-    } else {
-        next()
-    }
-})
+    const requiresAuth = to.matched.some(x => x.meta.requiresAuth);
+    if(requiresAuth) {
+        auth.onAuthStateChanged( (user) => {
+            if (!user) next('/login')
+            else next();
+        })
+    } else next()
+});
 
 export default router

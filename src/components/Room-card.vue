@@ -24,7 +24,8 @@
         <p class="text-body-2 text-justify">{{ roomData.description }}</p>
 
 
-        <div class=" ma-1 pa-2">
+        <div class=" ma-3 pa-3">
+
           <!-- Include -->
           <p class="text-body-2"><span class="text-body-1 accent--text">Include</span><br>{{ roomData.include }}</p>
 
@@ -35,6 +36,12 @@
           </v-layout>
 
         </div>
+
+        <!-- Book button -->
+        <div class=" text-center">
+          <v-btn small color="accent" width="10rem">Book</v-btn>
+        </div>
+
 
       </v-col>
 

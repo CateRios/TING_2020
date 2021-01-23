@@ -239,8 +239,8 @@ export default {
                 let startDate = moment(new Date(roomData.dates[i].from)).subtract(1, 'days');
                 let endDate = moment(new Date(roomData.dates[i].to)).add(1, 'days');
 
-                if (!moment(vm.fromDate).isBetween(startDate, endDate) && !moment(vm.toDate).isBetween(startDate, endDate)){
-                  if(!moment(vm.fromDate).isBetween(startDate, endDate) || !moment(vm.toDate).isBetween(startDate, endDate)){
+                if (!moment(vm.fromDate).isBetween(startDate, endDate) || !moment(vm.toDate).isBetween(startDate, endDate)){
+                  if(!startDate.isBetween(moment(vm.fromDate), moment(vm.toDate)) && !endDate.isBetween(moment(vm.fromDate), moment(vm.toDate))){
                     return true
                   }
                 }

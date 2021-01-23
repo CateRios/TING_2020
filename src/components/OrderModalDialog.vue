@@ -1,39 +1,20 @@
 <template>
   <v-row justify="center">
-    <v-dialog
-      v-model="dialog"
-      persistent
-      max-width="290"
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="primary"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-          Open Dialog
-        </v-btn>
-      </template>
+    <v-dialog v-model="dialog" persistent max-width="290">
       <v-card>
         <v-card-title class="headline">
           Use Google's location service?
         </v-card-title>
-        <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
+        <v-card-text
+          >Let Google help apps determine location. This means sending anonymous
+          location data to Google, even when no apps are running.</v-card-text
+        >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="green darken-1"
-            text
-            @click="dialog = false"
-          >
+          <v-btn color="green darken-1" text @click="dialog = false">
             Disagree
           </v-btn>
-          <v-btn
-            color="green darken-1"
-            text
-            @click="dialog = false"
-          >
+          <v-btn color="green darken-1" text @click="dialog = false">
             Agree
           </v-btn>
         </v-card-actions>
@@ -41,3 +22,20 @@
     </v-dialog>
   </v-row>
 </template>
+
+<script>
+import EventBus from "@/event-bus.js";
+
+export default {
+  data() {
+    return {
+      dialog: false,
+    };
+  },
+  created() {
+    EventBus.$on('Diálogo', function (value) {
+        this.dialog = value
+      });
+  },
+};
+</script>

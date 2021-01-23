@@ -12,6 +12,7 @@ const routes = [
     {path: "/access", component: () => import('../views/Access')},
 
     // With authentication
+    {path: "/access", component: () => import('../views/Access'), meta: {requiresAuth: true}},
     {path: "/menu", component: () => import('../views/Menu'), meta: {requiresAuth: true}},
 
     // ---- Components
@@ -21,8 +22,8 @@ const routes = [
     {path: "*", component: () => import('../components/NotFound')},
 
     // With authentication
-    {path: "/order", component: () => import('../components/Order'), meta: {requiresAuth: true}},
-    {path: "/home", component: () => import('../components/Home'), meta: {requiresAuth: true}}
+    {path: "/order", component: () => import('../components/Order'), meta: {requiresAuth: true}}
+
 
 ];
 

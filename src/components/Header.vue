@@ -26,7 +26,7 @@
       <v-toolbar-items class="hidden-xs-only">
         <v-btn
             plain
-            v-for="item in menuItems"
+            v-for="item in menu"
             :key="item.title"
             :to="item.path"
             color="accent">
@@ -48,7 +48,7 @@
         <v-list-item-group active-class="accent--text text--accent-4">
 
           <v-list-item
-              v-for="item in menuItems"
+              v-for="item in menu"
               :key="item.title"
               :to="item.path">
             <v-list-item-icon>
@@ -68,11 +68,14 @@
 
 <script>
 
+import {auth} from "../../firebase";
+
 export default {
   name: "Header",
   props: ['companyTitle', 'companyLogo'],
   data() {
     return {
+      menu: [],
       drawer: false,
       menuItems: [
         {title: 'Home', path: '/', icon: 'home'},
@@ -81,9 +84,24 @@ export default {
         {title: 'About Us', path: '/aboutUs', icon: 'account-group'},
         {title: 'Blog', path: '/blog', icon: 'blogger'},
         {title: 'Contact', path: '/contact', icon: 'face-agent'},
+      ],
+      userMenuItems:[
+        {title: 'Home', path: '/access', icon: 'home'},
+        {title: 'Services', path: '/roomServices', icon: 'room-service'},
+        {title: 'Food', path: '/menu', icon: 'food'},
+        {title: 'Contact', path: '/contact', icon: 'face-agent'},
       ]
     }
-  }
+  },
+  created() {
+    auth.onAuthStateChanged(userAuth => {
+      if (userAuth) {
+        this.menu = this.userMenuItems;
+      } else{
+        this.menu = this.menuItems;
+      }
+    });
+  },
 }
 </script>
 

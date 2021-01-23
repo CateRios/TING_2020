@@ -78,7 +78,7 @@ export default {
           user
         } = await auth.signInWithEmailAndPassword(this.email, this.password);
         console.log(user)
-        await this.$router.push({path: '/home'})
+        await this.$router.push({path: '/access'})
       } catch (error) {
         console.log(error.email);
       }

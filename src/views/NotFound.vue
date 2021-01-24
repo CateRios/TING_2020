@@ -53,7 +53,7 @@
 
     <!-- Description -->
     <div class="description">
-      <p><strong style="font-size:calc(12px + 1.5vw);">Page not found!</strong> The page you are looking for doesn't exist or and other error occurred.</p>
+      <p><strong style="font-size:calc(12px + 1.5vw);">Page not found!</strong> The page you are looking for doesn't exist or is under construction.</p>
     </div>
 
   </div>

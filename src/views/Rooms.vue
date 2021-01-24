@@ -105,6 +105,7 @@
 <script>
 
 import RoomCard from "@/components/Room-card";
+import {getRooms} from "../../server/functions/roomFunctions";
 
 import moment from 'moment'
 import {format, parseISO} from 'date-fns'
@@ -131,92 +132,8 @@ export default {
       peopleNumber: [1, 2, 3, 4],
 
       // Rooms
-      roomsData: [
-        {
-          name: "[Room name]",
-          icon: "account",
-          peopleNumber: 1,
-          price: "---",
-          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit venenatis, fermentum consequat donec blandit justo imperdiet nunc, metus neque nulla netus lectus vulputate nam. Nunc congue justo dui donec accumsan sed mauris ultrices, interdum feugiat pellentesque aptent eu vestibulum fusce ad convallis, in mi augue integer eleifend torquent ante. Malesuada ac iaculis class curabitur inceptos dignissim est vitae mollis, dictum eleifend pulvinar habitant habitasse senectus cras egestas, etiam id integer auctor cursus ut nec gravida.",
-          include: "Half Pension",
-          services: ['Wi-Fi', 'Air Conditioner', 'Television', 'Dryer', 'Clean service', 'Elivator'],
-          carouselData: {
-            height: "100%",
-            images: [
-              {src: "https://images.unsplash.com/photo-1560448205-4d9b3e6bb6db"},
-              {src: "https://images.unsplash.com/photo-1566073771259-6a8506099945"},
-              {src: "https://images.unsplash.com/photo-1548623832-065a018e01ce"}
-            ]
-
-          },
-          dates: [
-            {from: '2021-01-23', to: '2021-01-24'}
-          ]
-        },
-        {
-          name: "Tu madre",
-          icon: "account",
-          peopleNumber: 2,
-          price: "---",
-          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit venenatis, fermentum consequat donec blandit justo imperdiet nunc, metus neque nulla netus lectus vulputate nam. Nunc congue justo dui donec accumsan sed mauris ultrices, interdum feugiat pellentesque aptent eu vestibulum fusce ad convallis, in mi augue integer eleifend torquent ante. Malesuada ac iaculis class curabitur inceptos dignissim est vitae mollis, dictum eleifend pulvinar habitant habitasse senectus cras egestas, etiam id integer auctor cursus ut nec gravida.",
-          include: "Full Pension",
-          services: ['Wi-Fi', 'Air Conditioner', 'Television', 'Dryer', 'Clean service', 'Elivator'],
-          carouselData: {
-            height: "100%",
-            images: [
-              {src: "https://images.unsplash.com/photo-1560448205-4d9b3e6bb6db"},
-              {src: "https://images.unsplash.com/photo-1566073771259-6a8506099945"},
-              {src: "https://images.unsplash.com/photo-1548623832-065a018e01ce"}
-            ]
-          },
-          dates: [
-            {from: '2021-01-28', to: '2021-01-31'}
-          ]
-        },
-      ],
-      roomsDataCopy: [
-        {
-          name: "[Room name]",
-          icon: "account",
-          peopleNumber: 1,
-          price: "---",
-          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit venenatis, fermentum consequat donec blandit justo imperdiet nunc, metus neque nulla netus lectus vulputate nam. Nunc congue justo dui donec accumsan sed mauris ultrices, interdum feugiat pellentesque aptent eu vestibulum fusce ad convallis, in mi augue integer eleifend torquent ante. Malesuada ac iaculis class curabitur inceptos dignissim est vitae mollis, dictum eleifend pulvinar habitant habitasse senectus cras egestas, etiam id integer auctor cursus ut nec gravida.",
-          include: "Half Pension",
-          services: ['Wi-Fi', 'Air Conditioner', 'Television', 'Dryer', 'Clean service', 'Elivator'],
-          carouselData: {
-            height: "100%",
-            images: [
-              {src: "https://images.unsplash.com/photo-1560448205-4d9b3e6bb6db"},
-              {src: "https://images.unsplash.com/photo-1566073771259-6a8506099945"},
-              {src: "https://images.unsplash.com/photo-1548623832-065a018e01ce"}
-            ]
-
-          },
-          dates: [
-            {from: '2021-01-23', to: '2021-01-24'}
-          ]
-        },
-        {
-          name: "Tu madre",
-          icon: "account",
-          peopleNumber: 2,
-          price: "---",
-          description: "Lorem ipsum dolor sit amet consectetur adipiscing elit venenatis, fermentum consequat donec blandit justo imperdiet nunc, metus neque nulla netus lectus vulputate nam. Nunc congue justo dui donec accumsan sed mauris ultrices, interdum feugiat pellentesque aptent eu vestibulum fusce ad convallis, in mi augue integer eleifend torquent ante. Malesuada ac iaculis class curabitur inceptos dignissim est vitae mollis, dictum eleifend pulvinar habitant habitasse senectus cras egestas, etiam id integer auctor cursus ut nec gravida.",
-          include: "Full Pension",
-          services: ['Wi-Fi', 'Air Conditioner', 'Television', 'Dryer', 'Clean service', 'Elivator'],
-          carouselData: {
-            height: "100%",
-            images: [
-              {src: "https://images.unsplash.com/photo-1560448205-4d9b3e6bb6db"},
-              {src: "https://images.unsplash.com/photo-1566073771259-6a8506099945"},
-              {src: "https://images.unsplash.com/photo-1548623832-065a018e01ce"}
-            ]
-          },
-          dates: [
-            {from: '2021-01-28', to: '2021-01-31'}
-          ]
-        },
-      ]
+      roomsData: [],
+      roomsDataCopy: []
     }
   },
   methods: {
@@ -239,8 +156,8 @@ export default {
                 let startDate = moment(new Date(roomData.dates[i].from)).subtract(1, 'days');
                 let endDate = moment(new Date(roomData.dates[i].to)).add(1, 'days');
 
-                if (!moment(vm.fromDate).isBetween(startDate, endDate) || !moment(vm.toDate).isBetween(startDate, endDate)){
-                  if(!startDate.isBetween(moment(vm.fromDate), moment(vm.toDate)) && !endDate.isBetween(moment(vm.fromDate), moment(vm.toDate))){
+                if (!moment(vm.fromDate).isBetween(startDate, endDate) || !moment(vm.toDate).isBetween(startDate, endDate)) {
+                  if (!startDate.isBetween(moment(vm.fromDate), moment(vm.toDate)) && !endDate.isBetween(moment(vm.fromDate), moment(vm.toDate))) {
                     return true
                   }
                 }
@@ -255,6 +172,46 @@ export default {
       );
 
     }
+  },
+  created() {
+
+    let vm = this;
+
+    getRooms().then(function (rooms) {
+
+      for (let room of rooms) {
+
+        // Add icon
+        switch (room.peopleNumber){
+
+          case 2:
+            room.icon = "account-multiple";
+            break;
+
+          case room.peopleNumber > 2:
+            room.icon = "account-group-multiple";
+            break;
+
+          default:
+            room.icon = "account";
+            break;
+
+        }
+
+        // Add carousel data
+        room.carouselData = {
+          height: "24rem",
+          images: room.images
+        }
+
+      }
+
+      vm.roomsData = rooms;
+      vm.roomsDataCopy = rooms;
+
+    });
+
+
   }
 }
 

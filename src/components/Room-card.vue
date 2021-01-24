@@ -15,7 +15,7 @@
 
           <!-- Price -->
           <v-col>
-            <p class="text-h5 accent--text text-center">{{ roomData.price }} €/night</p>
+            <p class="text-h5 accent--text text-center">{{ roomData.amount }} €/night</p>
           </v-col>
 
         </v-row>

@@ -35,7 +35,7 @@
 <script>
 export default {
   name: "MenuList",
-   props:['menu']
+  props:['menu']
 }
 </script>
 

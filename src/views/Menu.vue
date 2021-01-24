@@ -10,22 +10,24 @@
 
     <!--Button-->
     <v-container fluid>
-    <v-layout row wrap>
-      <v-flex xs6 sm6 md6 lg6 xl6 offset-xs5 mt-3>
+      <v-layout row wrap>
+        <v-flex xs6 sm6 md6 lg6 xl6 offset-xs5 mt-3>
           <v-layout column>
             <v-flex class="text-xs-center" mt-5 mb-5>
-        <v-btn color="accent" x-large class="btn pa-5 text-h6" to="/order">Order</v-btn>
-      </v-flex>
+              <v-btn color="accent" x-large class="btn pa-5 text-h6" @click="prueba()"
+                >Order</v-btn
+              >
+            </v-flex>
           </v-layout>
-      </v-flex>
-    </v-layout>
-  </v-container>
-
+        </v-flex>
+      </v-layout>
+    </v-container>
   </div>
 </template>
 
 <script>
 import MenuList from "@/components/MenuList";
+import foodCollection from "../../firebase";
 
 export default {
   name: "Menu",
@@ -34,6 +36,7 @@ export default {
   },
   data() {
     return {
+      food: [],
       menu: {
         items: [
           {
@@ -80,6 +83,21 @@ export default {
       },
     };
   },
+  methods: {
+    prueba() {
+      var vm = this;
+      console.log("Antes de bd", JSON.stringify(foodCollection))
+    foodCollection
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          let ddd = doc.val()
+          vm.food.push(ddd)
+        });
+      });
+      console.log(this.food)
+    },
+  },
 };
 </script>
 
@@ -95,5 +113,5 @@ export default {
 
 .btn {
   font-family: "Ruluko", sans-serif !important;
-}
-</style>;
+}</style
+>;

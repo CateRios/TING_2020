@@ -31,7 +31,17 @@ let getRooms = async function (){
     return allRooms;
 }
 
+let getSelectedRoom = async function (){
+    let room = [];
+    var roomsRef = roomsCollection.doc('2r3mnabsVpoT23MDjNAp');
+   await roomsRef.get().then(function(doc) {
+            room.push(doc.data())
+    })
+    return room;
+}
+
 export  {
     setRoom,
-    getRooms
+    getRooms,
+    getSelectedRoom
 }

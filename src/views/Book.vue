@@ -6,14 +6,7 @@
 
     <!-- Rooms -->
     <v-container>
-
-
-      //Habria que hacer que aparezca la roomcard con el indice de la que el usuario haya picado
-	// pasando ese index por la url o algo 
-		// importante darse cuenta de que esto no son comentarios :)
-      <RoomCard />
-
-
+      <RoomCard v-bind:room-data="roomData"/>
     </v-container>
 
  <v-container fluid fill-height class="container">
@@ -30,6 +23,7 @@
             <v-form ref="form"
                     v-model="valid"
                     lazy-validation
+                    @submit.prevent="sendEmail"
             >
 
               <!-- User field -->
@@ -58,6 +52,7 @@
                   label="Email"
                   type="text"
                   color="accent"
+                  v-model="email"
 
               />
 
@@ -96,14 +91,11 @@
 
               />
 
+            <v-btn block color="accent" type="submit">Book</v-btn>
          
             </v-form>
 
           </v-card-text>
-
- <v-card-actions>
-            <v-btn block color="accent"  @click="bookButtonPressed">Book</v-btn>
-          </v-card-actions>
 
  </v-card>
 
@@ -120,27 +112,40 @@
 
 import RoomCard from "@/components/Room-card";
 import emailjs from 'emailjs-com';
-
+import {getSelectedRoom} from "/server/functions/roomFunctions";
 
 export default {
   name: "Book",
-email: "",
+  email: "",
+  user: "",
+  password: "",
+  roomData: [],
   components: {
     RoomCard
   },
+  props: ["roomId"],
   data() {
     return {
 
  }
+},
+created(){
+  let vm = this;
+  getSelectedRoom().then(function (data) {
+      vm.roomData = data;
+      console.log("data", vm.roomData)
+    });
 },
  methods:{
     sendEmail(e) {
       try {
         emailjs.sendForm('service_gqqo60m', 'template_ykmyzgj', e.target,
         'user_OvCYTVO2E6wAnouSJYryv', {
-          email: this.email
+          email: this.email,
+          user: this.user,
+          password: this.password,
         })
-        console.log("enviado")
+        console.log("Success")
       } catch(error) {
           console.log("Failed", {error})
       }

@@ -10,9 +10,10 @@ const routes = [
     {path: "/", component: () => import('../views/Index')},
     {path: "/rooms", component: () => import('../views/Rooms')},
     {path: "/contact", component: () => import('../views/Contact')},
+    {path: "/book/:roomId", component: () => import('../views/Book'), props: true},
 
     // With authentication
-    {path: "/access", component: () => import('../views/Access'), meta: {requiresAuth: true}},
+    {path: "/access" , component: () => import('../views/Access'), meta: {requiresAuth: true}},
     {path: "/menu", component: () => import('../views/Menu'), meta: {requiresAuth: true}},
     {path: "/order", component: () => import('../components/Order'), meta: {requiresAuth: true}},
 

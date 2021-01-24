@@ -36,64 +36,73 @@
               <v-text-field
                   label="First Name"
                   type="text"
-                  color="accent"
-
+                  color="accent" 
+                  :rules="userRules"
+                  required
               />
 
 		<v-text-field
                   label="Second Name"
                   type="text"
-                  color="accent"
-
+                  color="accent" 
+                  :rules="userRules"
+                  required
               />
 
 		<v-text-field
                   label="Phone Number"
                   type="text"
-                  color="accent"
-
+                  color="accent" 
+                  :rules="userRules"
+                  required
               />
 
 		<v-text-field
                   label="Email"
                   type="text"
-                  color="accent"
-
+                  color="accent" 
+                  :rules="userRules"
+                  required
               />
 
 		<v-text-field
                   label="Company"
                   type="text"
-                  color="accent"
-
+                  color="accent" 
+                  :rules="userRules"
+                  required
               />
 
 		<v-text-field
                   label="Credit Card Number"
                   type="text"
-                  color="accent"
-
+                  color="accent" 
+                  :rules="userRules"
+                  required
               />
 
 		<v-text-field
                   label="Titular Name"
                   type="text"
-                  color="accent"
-
+                  color="accent" 
+                  :rules="userRules"
+                  required
               />
 
 		<v-text-field
                   label="Expiration Date"
                   type="text"
-                  color="accent"
-
+                  color="accent" 
+                  :rules="userRules"
+                  required
               />
 
 		<v-text-field
                   label="Comments"
                   type="text"
-                  color="accent"
-
+                  color="accent" 
+                  :rules="userRules"
+                  required
               />
 
          
@@ -130,8 +139,22 @@ email: "",
   },
   data() {
     return {
+      valid: true,
+      user: '',
+      userRules: [
+        v => !!v || 'This field is required',
+      ],
+      password: '',
+      passwordRules: [
+        v => !!v || 'Password is required',
+        v => /^[a-z0-9]+$/.test(v) || 'Permitted only lowercase characters and numbers',
+        v => (v && v.length <= 8) || 'Password must be 8 characters/numbers',
+      ],
+      showPassword: false,
 
- }
+      error:[]
+
+    };
 },
  methods:{
     sendEmail(e) {

@@ -9,6 +9,7 @@ const routes = [
     // Without authentication
     {path: "/", component: () => import('../views/Index')},
     {path: "/rooms", component: () => import('../views/Rooms')},
+    {path: "/book", component: () => import('../views/Book')},
     {path: "/access", component: () => import('../views/Access')},
 
     // With authentication

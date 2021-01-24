@@ -39,7 +39,7 @@
 
         <!-- Book button -->
         <div class=" text-center">
-          <v-btn small color="accent" width="10rem">Book</v-btn>
+          <v-btn href="/book" small color="accent" width="10rem">Book</v-btn>
         </div>
 
 

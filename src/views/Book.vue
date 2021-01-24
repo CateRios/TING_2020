@@ -119,12 +119,12 @@
 <script>
 
 import RoomCard from "@/components/Room-card";
-
-
+import emailjs from 'emailjs-com';
 
 
 export default {
   name: "Book",
+email: "",
   components: {
     RoomCard
   },
@@ -132,9 +132,23 @@ export default {
     return {
 
  }
-}
+},
+ methods:{
+    sendEmail(e) {
+      try {
+        emailjs.sendForm('service_gqqo60m', 'template_ykmyzgj', e.target,
+        'user_OvCYTVO2E6wAnouSJYryv', {
+          email: this.email
+        })
+        console.log("enviado")
+      } catch(error) {
+          console.log("Failed", {error})
+      }
+    },
+  }
+};
 
-}
+
 
 </script>
 

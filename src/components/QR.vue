@@ -1,3 +1,4 @@
+
 <template>
 
   <v-container fluid fill-height class="container">
@@ -12,14 +13,8 @@
 
           <!-- QR image -->
           <div class="d-flex flex-column justify-space-between align-center ma-5 pa-5">
-            <v-img
-                contain
-                height="30.5vh"
-                width="30.5vh"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Wikipedia_Beta_Android_QR.svg/231px-Wikipedia_Beta_Android_QR.svg.png"
-            />
+            <img _ngcontent-vga-c28="" class="img-fluid d-flex mx-auto product-item-img mb-3 mb-lg-0 rounded" :src=user.qr>
           </div>
-
           <!-- Description -->
           <v-card-text class="text-center">
             To access the room via NFC press the button
@@ -41,8 +36,10 @@
 
 <script>
 export default {
-  name: "QR"
+  name: "QR",
+  props:['user']
 }
+
 </script>
 
 <style scoped>

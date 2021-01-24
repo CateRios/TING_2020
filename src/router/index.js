@@ -9,7 +9,6 @@ const routes = [
     // Without authentication
     {path: "/", component: () => import('../views/Index')},
     {path: "/rooms", component: () => import('../views/Rooms')},
-    {path: "/access", component: () => import('../views/Access')},
 
     // With authentication
     {path: "/access", component: () => import('../views/Access'), meta: {requiresAuth: true}},
@@ -31,6 +30,7 @@ Vue.use(VueRouter);
 
  let router = new VueRouter({
     mode: "history",
+     base: process.env.BASE_URL,
     routes
 });
 

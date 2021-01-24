@@ -66,7 +66,6 @@ export default {
             // eslint-disable-next-line no-unused-vars
             .then(tokenResult => {
               console.log(tokenResult.claims);
-
             });
       }
     });

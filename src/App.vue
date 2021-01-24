@@ -6,7 +6,7 @@
     <Header v-bind:company-title="companyTitle" v-bind:company-logo="companyLogo"/>
 
     <!-- Page content -->
-    <v-main>
+    <v-main style="overflow: hidden">
       <router-view/>
     </v-main>
 

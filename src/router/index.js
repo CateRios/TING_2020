@@ -19,7 +19,7 @@ const routes = [
 
     // Without authentication
     {path: "/login", component: () => import('../views/Login')},
-    {path: "*", component: () => import('../components/NotFound')},
+    {path: "*", component: () => import('../views/NotFound')},
 
 
 

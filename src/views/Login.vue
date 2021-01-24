@@ -12,24 +12,33 @@
           <!-- Form -->
           <v-card-text class="pa-3">
 
-            <v-form>
+            <v-form ref="form"
+                    v-model="valid"
+                    lazy-validation
+            >
 
-              <!-- Email field -->
+              <!-- User field -->
               <v-text-field
-                  v-model="email"
-                  label="Login"
+                  label="User"
                   prepend-icon="mdi-account"
                   type="text"
                   color="accent"
+                  v-model="user"
+                  :rules="userRules"
+                  required
               />
 
               <!-- Password field -->
               <v-text-field
-                  v-model="password"
                   label="Password"
                   prepend-icon="mdi-lock"
-                  type="password"
+                  :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="showPassword = !showPassword"
+                  :type="showPassword ? 'text' : 'password'"
                   color="accent"
+                  v-model="password"
+                  :rules="passwordRules"
+                  required
               />
             </v-form>
 
@@ -37,7 +46,7 @@
 
           <!-- Buttons -->
           <v-card-actions>
-            <v-btn block color="accent" @click="loginButtonPressed">Login</v-btn>
+            <v-btn block color="accent" :disabled="!valid" @click="loginButtonPressed">Login</v-btn>
           </v-card-actions>
 
         </v-card>
@@ -55,8 +64,19 @@ import {auth} from "../../firebase";
 export default {
   data() {
     return {
-      email: "",
-      password: ""
+      valid: true,
+      user: '',
+      userRules: [
+        v => !!v || 'User is required',
+        v => /^room+[0-9]+$/.test(v) || 'User must follow roomXXX expression',
+      ],
+      password: '',
+      passwordRules: [
+        v => !!v || 'Password is required',
+        v => /^[a-z0-9]+$/.test(v) || 'Permitted only lowercase characters and numbers',
+        v => (v && v.length <= 8) || 'Password must be 8 characters/numbers',
+      ],
+      showPassword: false,
     };
   },
   created() {
@@ -73,10 +93,7 @@ export default {
   methods: {
     async loginButtonPressed() {
       try {
-        const {
-          user
-        } = await auth.signInWithEmailAndPassword(this.email, this.password);
-        console.log(user)
+        await auth.signInWithEmailAndPassword(this.user + "@hotel.es", this.password);
         await this.$router.push({path: '/access'})
       } catch (error) {
         console.log(error.email);

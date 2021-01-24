@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height class="container">
     <v-layout align-center justify-center>
-      <v-flex xs12 sm8 md4>
+      <v-flex xs12 sm8 md6>
 
         <!-- Card -->
         <v-card class="elevation-5 ma-5 pa-5" color="rgb(255, 255, 255, 0.825)">
@@ -12,24 +12,36 @@
           <!-- Form -->
           <v-card-text class="pa-3">
 
-            <v-form>
+            <!-- Alert -->
+            <v-alert dense text type="error" v-if="error.value"><strong> {{ error.code }} !</strong> {{ error.message}}</v-alert>
 
-              <!-- Email field -->
+            <v-form ref="form"
+                    v-model="valid"
+                    lazy-validation
+            >
+
+              <!-- User field -->
               <v-text-field
-                  v-model="email"
-                  label="Login"
+                  label="User"
                   prepend-icon="mdi-account"
                   type="text"
                   color="accent"
+                  v-model="user"
+                  :rules="userRules"
+                  required
               />
 
               <!-- Password field -->
               <v-text-field
-                  v-model="password"
                   label="Password"
                   prepend-icon="mdi-lock"
-                  type="password"
+                  :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                  @click:append="showPassword = !showPassword"
+                  :type="showPassword ? 'text' : 'password'"
                   color="accent"
+                  v-model="password"
+                  :rules="passwordRules"
+                  required
               />
             </v-form>
 
@@ -37,7 +49,7 @@
 
           <!-- Buttons -->
           <v-card-actions>
-            <v-btn block color="accent" @click="loginButtonPressed">Login</v-btn>
+            <v-btn block color="accent" :disabled="!valid" @click="loginButtonPressed">Login</v-btn>
           </v-card-actions>
 
         </v-card>
@@ -55,8 +67,22 @@ import {auth} from "../../firebase";
 export default {
   data() {
     return {
-      email: "",
-      password: ""
+      valid: true,
+      user: '',
+      userRules: [
+        v => !!v || 'User is required',
+        v => /^room+[0-9]+$/.test(v) || 'User must follow roomXXX expression',
+      ],
+      password: '',
+      passwordRules: [
+        v => !!v || 'Password is required',
+        v => /^[a-z0-9]+$/.test(v) || 'Permitted only lowercase characters and numbers',
+        v => (v && v.length <= 8) || 'Password must be 8 characters/numbers',
+      ],
+      showPassword: false,
+
+      error:[]
+
     };
   },
   created() {
@@ -66,7 +92,6 @@ export default {
             // eslint-disable-next-line no-unused-vars
             .then(tokenResult => {
               console.log(tokenResult.claims);
-
             });
       }
     });
@@ -74,13 +99,14 @@ export default {
   methods: {
     async loginButtonPressed() {
       try {
-        const {
-          user
-        } = await auth.signInWithEmailAndPassword(this.email, this.password);
-        console.log(user)
+        await auth.signInWithEmailAndPassword(this.user + "@hotel.es", this.password);
         await this.$router.push({path: '/access'})
       } catch (error) {
-        console.log(error.email);
+        this.error = {
+          value: true,
+          code: error.code === "auth/wrong-password"? "Wrong password" : "Error",
+          message: error.message
+        }
       }
     }
   }

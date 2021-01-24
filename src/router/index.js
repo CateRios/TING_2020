@@ -9,12 +9,16 @@ const routes = [
     // Without authentication
     {path: "/", component: () => import('../views/Index')},
     {path: "/rooms", component: () => import('../views/Rooms')},
+<<<<<<< HEAD
     {path: "/book", component: () => import('../views/Book')},
     {path: "/access", component: () => import('../views/Access')},
+=======
+>>>>>>> ac3d14c238a79b4a7669856efce7d83a04117be3
 
     // With authentication
     {path: "/access", component: () => import('../views/Access'), meta: {requiresAuth: true}},
     {path: "/menu", component: () => import('../views/Menu'), meta: {requiresAuth: true}},
+    {path: "/order", component: () => import('../components/Order'), meta: {requiresAuth: true}},
 
     // ---- Components
 
@@ -22,8 +26,6 @@ const routes = [
     {path: "/login", component: () => import('../views/Login')},
     {path: "*", component: () => import('../components/NotFound')},
 
-    // With authentication
-    {path: "/order", component: () => import('../components/Order'), meta: {requiresAuth: true}}
 
 
 ];
@@ -32,6 +34,7 @@ Vue.use(VueRouter);
 
  let router = new VueRouter({
     mode: "history",
+     base: process.env.BASE_URL,
     routes
 });
 

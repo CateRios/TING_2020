@@ -37,16 +37,29 @@
 
       <v-spacer/>
 
-      <!-- Log in button -->
-      <v-btn outlined small color="accent" to="/login">Log in</v-btn>
+      <!-- Log in / Sign out buttons -->
+      <span class="hidden-xs-only">
+        <v-btn outlined small color="accent" to="/login" v-if="!authenticated">Log in</v-btn>
+        <v-btn outlined small color="accent" @click="logout" v-else>Log out</v-btn>
+      </span>
 
     </v-app-bar>
 
     <!-- Nav drawer -->
     <v-navigation-drawer v-model="drawer" app temporary>
-      <v-list nav dense>
-        <v-list-item-group active-class="accent--text text--accent-4">
 
+      <!-- Log in / Sign out buttons -->
+      <div class="text-end ma-3">
+        <v-btn outlined small color="accent" to="/login" v-if="!authenticated">Log in</v-btn>
+        <v-btn outlined small color="accent" @click="logout" v-else>Log out</v-btn>
+      </div>
+
+      <!-- Navigation menu options -->
+      <v-list nav dense>
+
+        <v-subheader class="listSecctionTitle">Menu</v-subheader>
+
+        <v-list-item-group active-class="accent--text text--accent-4">
           <v-list-item
               v-for="item in menu"
               :key="item.title"
@@ -57,9 +70,9 @@
             <v-list-item-title>{{ item.title }}</v-list-item-title>
 
           </v-list-item>
-
         </v-list-item-group>
       </v-list>
+
     </v-navigation-drawer>
 
   </div>
@@ -85,20 +98,33 @@ export default {
         {title: 'Blog', path: '/blog', icon: 'blogger'},
         {title: 'Contact', path: '/contact', icon: 'face-agent'},
       ],
-      userMenuItems:[
+      userMenuItems: [
         {title: 'Home', path: '/access', icon: 'home'},
         {title: 'Services', path: '/roomServices', icon: 'room-service'},
         {title: 'Food', path: '/menu', icon: 'food'},
         {title: 'Contact', path: '/contact', icon: 'face-agent'},
-      ]
+      ],
+
+      authenticated: false,
+    }
+  },
+  methods: {
+    logout() {
+      auth.signOut().then(() => {
+        auth.onAuthStateChanged(() => {
+          this.$router.push('/')
+        })
+      })
     }
   },
   created() {
     auth.onAuthStateChanged(userAuth => {
       if (userAuth) {
         this.menu = this.userMenuItems;
-      } else{
+        this.authenticated = true;
+      } else {
         this.menu = this.menuItems;
+        this.authenticated = false;
       }
     });
   },
@@ -109,6 +135,12 @@ export default {
 
 .companyTitle {
   font-size: xx-large;
+}
+
+.listSecctionTitle {
+  text-transform: uppercase;
+  border-bottom: 1px solid gray;
+  color: #00BCD4 !important;
 }
 
 </style>

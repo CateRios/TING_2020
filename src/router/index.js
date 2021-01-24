@@ -13,6 +13,7 @@ const routes = [
     // With authentication
     {path: "/access", component: () => import('../views/Access'), meta: {requiresAuth: true}},
     {path: "/menu", component: () => import('../views/Menu'), meta: {requiresAuth: true}},
+    {path: "/order", component: () => import('../components/Order'), meta: {requiresAuth: true}},
 
     // ---- Components
 
@@ -20,8 +21,6 @@ const routes = [
     {path: "/login", component: () => import('../views/Login')},
     {path: "*", component: () => import('../components/NotFound')},
 
-    // With authentication
-    {path: "/order", component: () => import('../components/Order'), meta: {requiresAuth: true}}
 
 
 ];

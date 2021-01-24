@@ -107,7 +107,7 @@
       <!--Button-->
       <v-container fluid id="btn">
         <v-layout row wrap>
-          <v-flex xs6 sm6 md6 lg6 xl6 offset-xs5 mt-3>
+          <v-flex xs6 sm6 md6 lg6 xl6 offset-xs3 offset-md5 offset-sm5 mt-3>
             <v-layout column>
               <v-flex class="text-xs-center" mt-5 mb-5>
                 <v-btn
@@ -133,17 +133,17 @@
         <v-dialog
           v-model="orderDialog"
           persistent
-          max-width="50%"
+          max-width="75%"
           pa-5
           height="auto"
           class="dialog-style"
         >
           <v-card class="pa-5 text-center">
-            <v-card-title class="title text-h5 justify-center">
+            <v-card-title class="title text-size justify-center">
               Please confirm your order
             </v-card-title>
             <hr class="separator mb-5"/>
-            <v-card-text v-for="select in selected" :key="select" class="label text-left text-subtitle-2"> 
+            <v-card-text v-for="select in selected" :key="select" class="label text-left text-size-2"> 
               {{ select }}
               </v-card-text>
             <v-card-actions>
@@ -151,7 +151,7 @@
 
               <v-container fluid id="btn">
                 <v-layout row wrap>
-                  <v-flex xs6 sm6 md6 lg6 xl6 mt-3>
+                  <v-flex xs12 sm6 md6 lg6 xl6 mt-3>
                     <v-layout column>
                       <v-flex class="text-xs-center" mt-5 mb-5>
                         <v-btn
@@ -163,7 +163,7 @@
                       </v-flex>
                     </v-layout>
                   </v-flex>
-                  <v-flex xs6 sm6 md6 lg6 xl6 mt-3>
+                  <v-flex xs12 sm6 md6 lg6 xl6 mt-3>
                     <v-layout column>
                       <v-flex class="text-xs-center" mt-5 mb-5>
                         <v-btn
@@ -186,16 +186,16 @@
 
       <!--Confirmation dialog-->
       <v-row justify="center">
-        <v-dialog v-model="infoDialog" persistent max-width="50%" height="auto">
+        <v-dialog v-model="infoDialog" persistent max-width="fit-content" height="auto">
           <v-card class="pa-5">
-            <v-card-text class="label text-h6 text-center"
-              >Gracias por su pedido. El tiempo aproximado de preparación de su plato es de una hora y media. Se le notificará cuando pueda acceder al comedor.</v-card-text
+            <v-card-text class="label text-size text-center"
+              >Thank you for your order. Approximate preparation time for your dish is one and a half hours. You will be notified when you can access the dining room.</v-card-text
             >
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-container fluid id="btn">
                 <v-layout row wrap>
-                  <v-flex xs6 sm6 md6 lg6 xl6 offset-xs5 mt-3>
+                  <v-flex xs6 sm6 md6 lg6 xl6 offset-xs4 offset-md5>
                     <v-layout column>
                       <v-flex class="text-xs-center" mt-5 mb-5>
                         <v-btn
@@ -220,14 +220,14 @@
       <v-row justify="center">
         <v-dialog v-model="warnDialog" persistent max-width="fit-content" height="auto">
           <v-card class="pa-5">
-            <v-card-text class="label text-h6 text-center"
-              >Seleccione por lo menos un plato</v-card-text
+            <v-card-text class="label text-center text-size"
+              >Select at least one dish</v-card-text
             >
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-container fluid id="btn">
                 <v-layout row wrap>
-                  <v-flex xs6 sm6 md6 lg6 xl6 offset-xs5 mt-3>
+                  <v-flex xs6 sm6 md6 lg6 xl6 offset-md4 offset-xs4 mt-3>
                     <v-layout column>
                       <v-flex class="text-xs-center" mt-5 mb-5>
                         <v-btn
@@ -349,6 +349,14 @@ export default {
   color: black !important;
   font-family: "Ruluko", sans-serif !important;
   font-weight: bold;
+}
+
+.text-size{
+  font-size: 1.2rem;
+}
+
+.text-size-2{
+  font-size: 1rem;
 }
 
 .btn {

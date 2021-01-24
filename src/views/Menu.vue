@@ -11,7 +11,7 @@
     <!--Button-->
     <v-container fluid>
       <v-layout row wrap>
-        <v-flex xs6 sm6 md6 lg6 xl6 offset-xs5 mt-3>
+        <v-flex xs6 sm6 md6 lg6 xl6 offset-xs4 offset-md6 offset-sm6 mt-3>
           <v-layout column>
             <v-flex class="text-xs-center" mt-5 mb-5>
               <v-btn color="accent" x-large class="btn pa-5 text-h6" to="/order"

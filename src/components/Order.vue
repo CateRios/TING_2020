@@ -7,18 +7,17 @@
         <hr class="separator" />
 
         <!--Item-->
-        <v-row v-for="d in menu.items[0].dishes" :key="d">
+        <v-row v-for="a in menu.items[0].dishes" :key="a">
           <v-col xs="12" sm="6" md="8" lg="8" xl="8">
             <v-checkbox
-              :id="d.id"
               color="#7bbce1"
               v-model="selected"
-              :value="d.dish"
-              :name="d.dish"
+              :value="a.name"
+              :name="a.name"
             >
               <template v-slot:label>
                 <div class="label">
-                  {{ d.dish }}
+                  {{ a.name }}
                 </div></template
               ></v-checkbox
             ></v-col
@@ -33,18 +32,17 @@
         <hr class="separator" />
 
         <!--Item-->
-        <v-row v-for="d in menu.items[1].dishes" :key="d">
+        <v-row v-for="b in menu.items[1].dishes" :key="b">
           <v-col xs="12" sm="6" md="8" lg="8" xl="8">
             <v-checkbox
-              :id="d.id"
               color="#7bbce1"
               v-model="selected"
-              :value="d.dish"
-              :name="d.dish"
+              :value="b.name"
+              :name="b.name"
             >
               <template v-slot:label>
                 <div class="label">
-                  {{ d.dish }}
+                  {{ b.name }}
                 </div></template
               ></v-checkbox
             ></v-col
@@ -59,18 +57,17 @@
         <hr class="separator" />
 
         <!--Item-->
-        <v-row v-for="d in menu.items[2].dishes" :key="d">
+        <v-row v-for="c in menu.items[2].dishes" :key="c">
           <v-col xs="12" sm="6" md="8" lg="8" xl="8">
             <v-checkbox
-              :id="d.id"
               color="#7bbce1"
               v-model="selected"
-              :value="d.dish"
-              :name="d.dish"
+              :value="c.name"
+              :name="c.name"
             >
               <template v-slot:label>
                 <div class="label">
-                  {{ d.dish }}
+                  {{ c.name }}
                 </div></template
               ></v-checkbox
             ></v-col
@@ -88,15 +85,14 @@
         <v-row v-for="d in menu.items[3].dishes" :key="d">
           <v-col xs="12" sm="6" md="8" lg="8" xl="8">
             <v-checkbox
-              :id="d.id"
               color="#7bbce1"
               v-model="selected"
-              :value="d.dish"
-              :name="d.dish"
+              :value="d.name"
+              :name="d.name"
             >
               <template v-slot:label>
                 <div class="label">
-                  {{ d.dish }}
+                  {{ d.name }}
                 </div></template
               ></v-checkbox
             ></v-col
@@ -146,8 +142,10 @@
             <v-card-title class="title text-h5 justify-center">
               Please confirm your order
             </v-card-title>
-            <hr class="separator"/>
-            <v-card-text class="label text-left"> {{ selected }}</v-card-text>
+            <hr class="separator mb-5"/>
+            <v-card-text v-for="select in selected" :key="select" class="label text-left text-subtitle-2"> 
+              {{ select }}
+              </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
 
@@ -191,9 +189,7 @@
         <v-dialog v-model="infoDialog" persistent max-width="50%" height="auto">
           <v-card class="pa-5">
             <v-card-text class="label text-h6 text-center"
-              >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna
-              aliqua.</v-card-text
+              >Gracias por su pedido. El tiempo aproximado de preparación de su plato es de una hora y media. Se le notificará cuando pueda acceder al comedor.</v-card-text
             >
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -206,6 +202,7 @@
                           @click.prevent="infoDialogClose()"
                           color="accent"
                           class="btn pa-5 text-h6"
+                          to="/menu"
                           >OK</v-btn
                         >
                       </v-flex>
@@ -256,6 +253,8 @@
 </template>
 
 <script>
+import {getStarters, getMain, getSeconds, getDesserts} from "../../server/functions/foodFunctions";
+
 export default {
   name: "Order",
   data() {
@@ -264,44 +263,20 @@ export default {
       menu: {
         items: [
           {
-            id: 0,
             title: "Starter",
-            dishes: [
-              { id: "0", dish: "List item 1" },
-              { id: "1", dish: "List item 2" },
-              { id: "2", dish: "List item 3" },
-              { id: "3", dish: "List item 4" },
-            ],
+            dishes: [],
           },
           {
-            id: 1,
             title: "Main Dish",
-            dishes: [
-              { id: "4", dish: "List item 5" },
-              { id: "5", dish: "List item 6" },
-              { id: "6", dish: "List item 7" },
-              { id: "7", dish: "List item 8" },
-            ],
+            dishes: [],
           },
           {
-            id: 2,
             title: "Second course",
-            dishes: [
-              { id: "8", dish: "List item 9" },
-              { id: "9", dish: "List item 10" },
-              { id: "10", dish: "List item 11" },
-              { id: "11", dish: "List item 12" },
-            ],
+            dishes: []
           },
           {
-            id: 3,
             title: "Dessert",
-            dishes: [
-              { id: "12", dish: "List item 13" },
-              { id: "13", dish: "List item 14" },
-              { id: "14", dish: "List item 15" },
-              { id: "15", dish: "List item 16" },
-            ],
+            dishes: [],
           },
         ],
       },
@@ -335,7 +310,21 @@ export default {
     warnDialogClose: function() {
       this.warnDialog = false;
     },
-    
+  },
+      created(){
+    let vm = this;
+    getStarters().then(function (items) {
+      vm.menu.items[0].dishes = items;
+    });
+    getMain().then(function (items) {
+      vm.menu.items[1].dishes = items;
+    });
+    getSeconds().then(function (items) {
+      vm.menu.items[2].dishes = items;
+    });
+    getDesserts().then(function (items) {
+      vm.menu.items[3].dishes = items;
+    });
   },
 };
 </script>
@@ -357,7 +346,7 @@ export default {
 }
 
 .label {
-  color: black;
+  color: black !important;
   font-family: "Ruluko", sans-serif !important;
   font-weight: bold;
 }

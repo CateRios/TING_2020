@@ -23,6 +23,7 @@ const auth = firebase.auth();
 // collection references
 const usersCollection = db.collection('users')
 const roomsCollection = db.collection('rooms')
+const foodCollection = db.collection('food');
 
 // export utils/refs
 export {
@@ -30,4 +31,5 @@ export {
     auth,
     usersCollection,
     roomsCollection,
+    foodCollection
 }

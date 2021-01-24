@@ -12,7 +12,7 @@
                 <v-icon class="icon">mdi-star-four-points</v-icon>
               </v-list-item-icon>
               <v-list-item-content>
-                <v-list-item-title>{{d.dish}}</v-list-item-title>
+                <v-list-item-title>{{d.name}}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-row>

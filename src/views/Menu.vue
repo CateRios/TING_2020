@@ -14,7 +14,7 @@
         <v-flex xs6 sm6 md6 lg6 xl6 offset-xs5 mt-3>
           <v-layout column>
             <v-flex class="text-xs-center" mt-5 mb-5>
-              <v-btn color="accent" x-large class="btn pa-5 text-h6" @click="prueba()"
+              <v-btn color="accent" x-large class="btn pa-5 text-h6" to="/order"
                 >Order</v-btn
               >
             </v-flex>
@@ -27,7 +27,7 @@
 
 <script>
 import MenuList from "@/components/MenuList";
-import foodCollection from "../../firebase";
+import {getStarters, getMain, getSeconds, getDesserts} from "../../server/functions/foodFunctions";
 
 export default {
   name: "Menu",
@@ -36,67 +36,46 @@ export default {
   },
   data() {
     return {
-      food: [],
       menu: {
         items: [
           {
             title: "Starter",
             src: "https://images.unsplash.com/photo-1529059997568-3d847b1154f0",
-            dishes: [
-              { dish: "List item" },
-              { dish: "List item" },
-              { dish: "List item" },
-              { dish: "List item" },
-            ],
+            dishes: [],
           },
           {
             title: "Main Dish",
             src: "https://images.unsplash.com/photo-1551183053-bf91a1d81141",
-            dishes: [
-              { dish: "List item" },
-              { dish: "List item" },
-              { dish: "List item" },
-              { dish: "List item" },
-            ],
+            dishes: [],
           },
           {
             title: "Second course",
             src: "https://images.unsplash.com/photo-1582391123232-6130296f1fcd",
-            dishes: [
-              { dish: "List item" },
-              { dish: "List item" },
-              { dish: "List item" },
-              { dish: "List item" },
-            ],
+            dishes: []
           },
           {
             title: "Dessert",
             src: "https://images.unsplash.com/photo-1550617931-e17a7b70dce2",
-            dishes: [
-              { dish: "List item" },
-              { dish: "List item" },
-              { dish: "List item" },
-              { dish: "List item" },
-            ],
+            dishes: [],
           },
         ],
       },
     };
   },
-  methods: {
-    prueba() {
-      var vm = this;
-      console.log("Antes de bd", JSON.stringify(foodCollection))
-    foodCollection
-      .get()
-      .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          let ddd = doc.val()
-          vm.food.push(ddd)
-        });
-      });
-      console.log(this.food)
-    },
+  created(){
+    let vm = this;
+    getStarters().then(function (items) {
+      vm.menu.items[0].dishes = items;
+    });
+    getMain().then(function (items) {
+      vm.menu.items[1].dishes = items;
+    });
+    getSeconds().then(function (items) {
+      vm.menu.items[2].dishes = items;
+    });
+    getDesserts().then(function (items) {
+      vm.menu.items[3].dishes = items;
+    });
   },
 };
 </script>

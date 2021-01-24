@@ -3,7 +3,7 @@
     <v-card max-width="100%" class="center mt-3 pa-0" v-for="item in menu.items" :key="item" >
       <v-row class="no-gutters">
         <!--Dishes-->
-         <v-col xs="12" sm="6" md="8" lg="8" xl="8">
+         <v-col xs="12" sm="6" md="7" lg="8" xl="8">
           <v-card-title class="title text-h5">{{item.title}}</v-card-title>
           <!--Dish list-->
           <v-row v-for="d in item.dishes" :key="d" class="mt-0 ml-6">
@@ -19,7 +19,7 @@
         </v-col>
 
         <!--Image-->
-        <v-col xs="12" sm="6" md="4" lg="4" xl="4">
+        <v-col xs="12" sm="6" md="5" lg="4" xl="4">
           <v-img
             max-height="100%"
             max-width="auto"

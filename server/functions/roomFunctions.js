@@ -1,8 +1,9 @@
 import { roomsCollection } from "../../firebase";
 
-let setRoom = async function (data){
+let setRoom = async function (id,data){
 
     const room = await roomsCollection.add({
+        id: id,
         name: data.name,
         peopleNumber: data.peopleNumber,
         description: data.description,
@@ -11,7 +12,6 @@ let setRoom = async function (data){
         amount: data.amount,
         include: data.include,
         occupationsDates: data.occupationsDates,
-        user_ids: data.user_ids
     });
 
     console.log('Added new room document with ID: ', room.id);

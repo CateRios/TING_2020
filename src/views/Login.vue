@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height class="container">
     <v-layout align-center justify-center>
-      <v-flex xs12 sm8 md4>
+      <v-flex xs12 sm8 md6>
 
         <!-- Card -->
         <v-card class="elevation-5 ma-5 pa-5" color="rgb(255, 255, 255, 0.825)">
@@ -11,6 +11,9 @@
 
           <!-- Form -->
           <v-card-text class="pa-3">
+
+            <!-- Alert -->
+            <v-alert dense text type="error" v-if="error.value"><strong> {{ error.code }} !</strong> {{ error.message}}</v-alert>
 
             <v-form ref="form"
                     v-model="valid"
@@ -77,6 +80,9 @@ export default {
         v => (v && v.length <= 8) || 'Password must be 8 characters/numbers',
       ],
       showPassword: false,
+
+      error:[]
+
     };
   },
   created() {
@@ -96,7 +102,11 @@ export default {
         await auth.signInWithEmailAndPassword(this.user + "@hotel.es", this.password);
         await this.$router.push({path: '/access'})
       } catch (error) {
-        console.log(error.email);
+        this.error = {
+          value: true,
+          code: error.code === "auth/wrong-password"? "Wrong password" : "Error",
+          message: error.message
+        }
       }
     }
   }

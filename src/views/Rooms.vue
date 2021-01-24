@@ -105,6 +105,7 @@
 <script>
 
 import RoomCard from "@/components/Room-card";
+import {getRooms} from "../../server/functions/roomFunctions";
 
 import moment from 'moment'
 import {format, parseISO} from 'date-fns'
@@ -239,8 +240,8 @@ export default {
                 let startDate = moment(new Date(roomData.dates[i].from)).subtract(1, 'days');
                 let endDate = moment(new Date(roomData.dates[i].to)).add(1, 'days');
 
-                if (!moment(vm.fromDate).isBetween(startDate, endDate) || !moment(vm.toDate).isBetween(startDate, endDate)){
-                  if(!startDate.isBetween(moment(vm.fromDate), moment(vm.toDate)) && !endDate.isBetween(moment(vm.fromDate), moment(vm.toDate))){
+                if (!moment(vm.fromDate).isBetween(startDate, endDate) || !moment(vm.toDate).isBetween(startDate, endDate)) {
+                  if (!startDate.isBetween(moment(vm.fromDate), moment(vm.toDate)) && !endDate.isBetween(moment(vm.fromDate), moment(vm.toDate))) {
                     return true
                   }
                 }
@@ -255,6 +256,46 @@ export default {
       );
 
     }
+  },
+  created() {
+
+    let vm = this;
+
+    getRooms().then(function (rooms) {
+
+      for (let room of rooms) {
+
+        // Add icon
+        switch (room.peopleNumber){
+
+          case 2:
+            room.icon = "account-multiple";
+            break;
+
+          case room.peopleNumber > 2:
+            room.icon = "account-group-multiple";
+            break;
+
+          default:
+            room.icon = "account";
+            break;
+
+        }
+
+        // Add carousel data
+        room.carouselData = {
+          height: "24rem",
+          images: room.images
+        }
+
+      }
+
+      vm.roomsData = rooms;
+      vm.roomsDataCopy = rooms;
+
+    });
+
+
   }
 }
 

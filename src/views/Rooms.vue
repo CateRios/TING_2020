@@ -188,8 +188,8 @@ export default {
             room.icon = "account-multiple";
             break;
 
-          case room.peopleNumber > 2:
-            room.icon = "account-group-multiple";
+          case 4:
+            room.icon = "account-group-outline";
             break;
 
           default:

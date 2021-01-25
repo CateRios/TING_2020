@@ -238,7 +238,7 @@ export default {
             type: "success",
             code: "Booked room",
             message:
-              "The room was successfully booked. Thank you and we will waiting for you.",
+              "The room was successfully booked. Thank you and we will be waiting for you.",
           };
         });
       });

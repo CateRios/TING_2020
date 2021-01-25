@@ -2,7 +2,7 @@
   <div>
     <!-- Rooms -->
     <v-container>
-      <RoomCard v-bind:room-data="roomData" />
+      <RoomCardBook v-bind:room-data="roomData" />
     </v-container>
 
     <v-container fluid fill-height class="container">
@@ -102,14 +102,14 @@
 </template>
 
 <script>
-import RoomCard from "@/components/Room-card";
+import RoomCardBook from "@/components/Room-card-book";
 import emailjs from "emailjs-com";
 import { getSelectedRoom } from "/server/functions/roomFunctions";
 
 export default {
   name: "Book",
   components: {
-    RoomCard,
+    RoomCardBook,
   },
   props: ["roomId"],
   data() {
@@ -132,7 +132,7 @@ export default {
   },
   created() {
     let vm = this;
-    getSelectedRoom().then(function(data) {
+    getSelectedRoom(vm.roomId).then(function(data) {
       vm.roomData = data[0];
     });
   },

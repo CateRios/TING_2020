@@ -31,12 +31,16 @@ let getRooms = async function (){
     return allRooms;
 }
 
-let getSelectedRoom = async function (){
+let getSelectedRoom = async function (index){
     let room = [];
-    var roomsRef = roomsCollection.doc('2r3mnabsVpoT23MDjNAp');
-   await roomsRef.get().then(function(doc) {
-            room.push(doc.data())
-    })
+    await roomsCollection.where("id", "==", index ).get()
+        .then(results => {
+            results.forEach(result => {
+                room.push(result.data())
+            });
+        }).catch(err => {
+            console.log('Error getting documents', err);
+        });
     return room;
 }
 

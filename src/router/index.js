@@ -10,7 +10,7 @@ const routes = [
     {path: "/", component: () => import('../views/Index')},
     {path: "/rooms", component: () => import('../views/Rooms')},
     {path: "/contact", component: () => import('../views/Contact')},
-    {path: "/book/:roomId", component: () => import('../views/Book'), props: true},
+    {path: "/book/:roomId/:fromDate/:toDate", name:"Book", component: () => import('../views/Book'), props: true},
 
     // With authentication
     {path: "/access" , component: () => import('../views/Access'), meta: {requiresAuth: true}},

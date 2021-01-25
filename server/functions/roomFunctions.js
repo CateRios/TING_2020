@@ -36,7 +36,7 @@ let getSelectedRoom = async function (index){
     await roomsCollection.where("id", "==", index ).get()
         .then(results => {
             results.forEach(result => {
-                room.push(result.data())
+                room.push({id: result.id, data: result.data()})
             });
         }).catch(err => {
             console.log('Error getting documents', err);
@@ -45,11 +45,7 @@ let getSelectedRoom = async function (index){
 }
 
 let bookRoom = async function(room_id, dates){
-
-    const res = await roomsCollection.update({occupationsDates: dates});
-
-    console.log(res);
-
+    await roomsCollection.doc(room_id).update({occupationsDates: dates});
 }
 
 export  {

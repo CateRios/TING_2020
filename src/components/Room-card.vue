@@ -39,7 +39,7 @@
 
         <!-- Book button -->
         <div class=" text-center">
-          <v-btn :to="'/book/' + roomData.id + ''" small color="accent" width="10rem">Book</v-btn>
+          <v-btn :to="{ name: 'Book', params: { roomId: roomData.id, fromDate: fromDate, toDate:toDate } }" small color="accent" width="10rem">Book</v-btn>
         </div>
 
 
@@ -64,7 +64,7 @@ export default {
   components: {
     Carousel
   },
-  props:['roomData'],
+  props:['roomData','fromDate','toDate'],
 }
 </script>
 

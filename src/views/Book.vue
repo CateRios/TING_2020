@@ -129,7 +129,7 @@
 
       <!-- Room data -->
       <v-col cols="12" md="6">
-        <RoomCardBook v-bind:room-data="roomData" />
+        <RoomCardBook v-bind:room-data="roomData.data" />
       </v-col>
     </v-row>
   </v-container>
@@ -147,7 +147,7 @@ export default {
   components: {
     RoomCardBook,
   },
-  props: ["roomId"],
+  props: ['roomId','fromDate','toDate'],
   data() {
     return {
       valid: true,
@@ -218,6 +218,9 @@ export default {
   },
   methods: {
     bookRoom() {
+
+      let vm = this
+
       //Todo: In the future implement the payment platform
 
       let clientData = {
@@ -228,27 +231,23 @@ export default {
         email: this.email,
       }
 
-      setClient(this.roomData.id, clientData).then(function (client_id) {
+      setClient(vm.roomData.data.id, clientData).then(function (client_id) {
 
         let dates = {
-          from: this.roomData.id,
-          to: this.firstName,
+          from: vm.fromDate,
+          to: vm.toDate,
           client: client_id,
         }
 
-        this.roomData.occupationsDates.push(dates)
+        vm.roomData.data.occupationsDates.push(dates)
 
-        bookRoom(this.roomData.id,this.roomData.occupationsDates).then(function (res) {
-
-          console.log(res)
-
-          this.transaction = {
+        bookRoom(vm.roomData.id,vm.roomData.data.occupationsDates).then(function () {
+          vm.transaction = {
             value: true,
             type: "success",
             code: "Booked room",
-            message:
-              "The room was successfully booked. Thank you and we will be waiting for you.",
-          };
+            message: "The room was successfully booked. Thank you and we will be waiting for you.",
+          }
         });
       });
     },

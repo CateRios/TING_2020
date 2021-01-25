@@ -93,7 +93,7 @@
     <!-- Rooms -->
     <v-container>
 
-      <RoomCard v-for="(room,index) in roomsData" :key="index" v-bind:room-data="room"/>
+      <RoomCard v-for="(room,index) in roomsData" :key="index" v-bind:room-data="room" v-bind:from-date="fromDate" v-bind:to-date="toDate"/>
 
     </v-container>
 

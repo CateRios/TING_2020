@@ -13,7 +13,7 @@
 
           <!-- QR image -->
           <div class="d-flex flex-column justify-space-between align-center ma-5 pa-5">
-            <img _ngcontent-vga-c28="" class="img-fluid d-flex mx-auto product-item-img mb-3 mb-lg-0 rounded" :src=user.qr>
+            <img _ngcontent-vga-c28="" class="img-fluid d-flex mx-auto product-item-img mb-3 mb-lg-0 rounded" :src="user.qr">
           </div>
           <!-- Description -->
           <v-card-text class="text-center">
@@ -37,7 +37,7 @@
 <script>
 export default {
   name: "QR",
-  props:['user']
+  props:['user'],
 }
 
 </script>

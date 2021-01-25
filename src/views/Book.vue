@@ -226,12 +226,21 @@ export default {
         secondName: this.secondName,
         phoneNumber: this.phoneNumber,
         email: this.email,
-      };
+      }
 
-      let vm = this;
-      setClient(vm.roomId, clientData).then(function() {
-        bookRoom(vm.roomId).then(function(res) {
-          console.log(res);
+      setClient(this.roomData.id, clientData).then(function (client_id) {
+
+        let dates = {
+          from: this.roomData.id,
+          to: this.firstName,
+          client: client_id,
+        }
+
+        this.roomData.occupationsDates.push(dates)
+
+        bookRoom(this.roomData.id,this.roomData.occupationsDates).then(function (res) {
+
+          console.log(res)
 
           this.transaction = {
             value: true,
@@ -269,6 +278,7 @@ export default {
     },
   },
 };
+
 </script>
 
 <style scoped>

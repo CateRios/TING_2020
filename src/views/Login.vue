@@ -77,7 +77,7 @@ export default {
       passwordRules: [
         v => !!v || 'Password is required',
         v => /^[a-z0-9]+$/.test(v) || 'Permitted only lowercase characters and numbers',
-        v => (v && v.length <= 8) || 'Password must be 8 characters/numbers',
+        v => (v && v.length === 8) || 'Password must be 8 characters/numbers',
       ],
       showPassword: false,
 

@@ -48,7 +48,7 @@
                       type="text"
                       color="accent"
                       v-model="phoneNumber"
-                      :rules="phoneNumbers"
+                      :rules="phoneNumberRules"
                       required
                   />
 
@@ -80,7 +80,7 @@
                       type="text"
                       color="accent"
                       v-model="titularCard"
-                      :rules="titularRules"
+                      :rules="titularCardRules"
                       required
                   />
 
@@ -90,17 +90,17 @@
                       type="text"
                       color="accent"
                       v-model="expirationDateCard"
-                      :rules="expirationDateRules"
+                      :rules="expirationDateCardRules"
                       required
                   />
 
                   <!-- CVV of credit card field -->
                   <v-text-field
-                      label="CVV Date"
+                      label="CVV"
                       type="text"
                       color="accent"
                       v-model="cvvCard"
-                      :rules="cvvRules"
+                      :rules="cvvCardRules"
                       required
                   />
 
@@ -149,28 +149,53 @@ export default {
       valid: true,
 
       firstName: '',
-      firstNameRules: [],
+      firstNameRules: [
+        v => !!v || 'First name is required',
+        v => /^[a-zA-Z\s]*$/.test(v) || 'Permitted only characters',
+      ],
 
       secondName: '',
-      secondNameRules: [],
+      secondNameRules: [
+        v => !!v || 'Second name is required',
+        v => /^[a-zA-Z\s]*$/.test(v) || 'Permitted only characters',
+      ],
 
       phoneNumber: '',
-      phoneNumberRules: [],
+      phoneNumberRules: [
+        v => !!v || 'Phone number is required',
+        v => /^\+?([0-9]{2})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})[-. ]?([0-9]{3})$/.test(v) || 'The phone number must follow +XX XXX XXX XXX expression',
+      ],
 
       email: '',
-      emailRules: [],
+      emailRules: [
+        v => !!v || 'Email is required',
+        v => /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(v) || 'The email does not has the correct formatt.',
+      ],
 
       creditCard: '',
-      creditCardRules: [],
+      creditCardRules: [
+          v => !!v || 'The credit card number is required',
+          v => /^[0-9]*$/.test(v) ||'Permitted only numbers',
+          v => (v && v.length <= 16) || 'The credit card number 16 digits or less',
+      ],
 
       titularCard: '',
-      titularCardRules: [],
+      titularCardRules: [
+        v => !!v || 'The titular of the credit card is required',
+        v => /^[a-zA-Z\s]*$/.test(v) || 'Permitted only characters',
+      ],
 
       expirationDateCard: '',
-      expirationDateCardRules: [],
+      expirationDateCardRules: [
+        v => !!v || 'The expiration date of the credit card is required',
+        v => /^(0?[1-9]|1[012])[/-][0-9]{2}$/.test(v) || 'The expiration date must follow mm/yy expression',
+      ],
 
       cvvCard: '',
-      cvvCardRules: [],
+      cvvCardRules: [
+        v => !!v || 'The credit card number is required',
+        v => /^[0-9]{3}$/.test(v) ||'Permitted only 3 digits',
+      ],
 
       transaction: [],
       roomData: [],

@@ -201,7 +201,7 @@ export default {
         v => !!v || 'The credit card number is required',
         v => /^[0-9]{3}$/.test(v) ||'Permitted only 3 digits',
       ],
-
+      roomData: [],
       transaction: [],
     };
   },

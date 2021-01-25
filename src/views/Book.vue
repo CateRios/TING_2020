@@ -118,16 +118,22 @@ export default {
       email: "",
       user: "",
       password: "",
-      roomData: [],
+      roomData: [{
+        amount: "",
+        description: "",
+        carouselData: [{},{},{}],
+        include: "",
+        name: "",
+        services: "",
+        peopleNumber: "",
+      }],
       error: [],
     };
   },
   created() {
     let vm = this;
-    console.log(vm.roomId);
     getSelectedRoom().then(function(data) {
-      vm.roomData = data;
-      console.log("data", vm.roomData);
+      vm.roomData = data[0];
     });
   },
   methods: {

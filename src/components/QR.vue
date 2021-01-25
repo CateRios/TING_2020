@@ -12,8 +12,12 @@
           <v-card-title class="justify-center accent--text title">Room access</v-card-title>
 
           <!-- QR image -->
-          <div class="d-flex flex-column justify-space-between align-center ma-5 pa-5">
-            <img _ngcontent-vga-c28="" class="img-fluid d-flex mx-auto product-item-img mb-3 mb-lg-0 rounded" :src="user.qr">
+          <div class="d-flex flex-column justify-space-between align-center ma-5">
+            <v-img
+                   contain
+                   height="30.5vh"
+                   width="30.5vh"
+                   :src="user.qr"/>
           </div>
           <!-- Description -->
           <v-card-text class="text-center">

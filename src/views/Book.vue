@@ -208,15 +208,16 @@ export default {
       //Todo: In the future implement the payment platform
 
       let clientData = {
-        room_id: this.roomData.id,
+        room_id: this.roomId,
         firstName: this.firstName,
         secondName: this.secondName,
         phoneNumber: this.phoneNumber,
         email: this.email,
       };
 
-      setClient(this.roomData.id, clientData).then(function() {
-        bookRoom(this.roomData.id).then(function(res) {
+      let vm = this;
+      setClient(vm.roomId, clientData).then(function() {
+        bookRoom(vm.roomId).then(function(res) {
           console.log(res);
 
           this.transaction = {
@@ -230,6 +231,8 @@ export default {
       });
     },
     sendEmail(e) {
+
+      //Do the client registration before sending credentials
       this.bookRoom();
 
       try {
@@ -248,6 +251,8 @@ export default {
       } catch (error) {
         console.log("Failed", { error });
       }
+
+       this.$refs.form.reset()
     },
   },
 };

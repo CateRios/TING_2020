@@ -16,10 +16,7 @@
             <!-- Alert -->
             <v-alert dense text type="error" v-if="error.value"><strong> {{ error.code }} !</strong> {{ error.message}}</v-alert>
 
-            <v-form ref="form"
-                    v-model="valid"
-                    lazy-validation
-            >
+            <v-form ref="form" v-model="valid" lazy-validation>
 
               <!-- User field -->
               <v-text-field
@@ -48,7 +45,7 @@
 
           </v-card-text>
 
-          <!-- Buttons -->
+          <!-- Button -->
           <v-card-actions>
             <v-btn block color="accent" :disabled="!valid" @click="loginButtonPressed">Login</v-btn>
           </v-card-actions>
@@ -69,11 +66,13 @@ export default {
   data() {
     return {
       valid: true,
+
       user: '',
       userRules: [
         v => !!v || 'User is required',
         v => /^room+[0-9]+$/.test(v) || 'User must follow roomXXX expression',
       ],
+
       password: '',
       passwordRules: [
         v => !!v || 'Password is required',

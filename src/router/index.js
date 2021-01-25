@@ -11,6 +11,7 @@ const routes = [
     {path: "/rooms", component: () => import('../views/Rooms')},
     {path: "/contact", component: () => import('../views/Contact')},
     {path: "/book/:roomId", component: () => import('../views/Book'), props: true},
+    {path: "/aboutUs", component: () => import('../views/AboutUs')},
 
     // With authentication
     {path: "/access" , component: () => import('../views/Access'), meta: {requiresAuth: true}},

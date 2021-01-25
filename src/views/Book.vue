@@ -105,6 +105,7 @@
 import RoomCardBook from "@/components/Room-card-book";
 import emailjs from "emailjs-com";
 import { getSelectedRoom } from "/server/functions/roomFunctions";
+import { getUser } from "/server/functions/usersFunctions";
 
 export default {
   name: "Book",
@@ -118,14 +119,16 @@ export default {
       email: "",
       user: "",
       password: "",
-      roomData: [{
-        amount: "",
-        description: "",
-        include: "",
-        name: "",
-        services: "",
-        peopleNumber: "",
-      }],
+      roomData: [
+        {
+          amount: "",
+          description: "",
+          include: "",
+          name: "",
+          services: "",
+          peopleNumber: "",
+        },
+      ],
       error: [],
     };
   },
@@ -134,23 +137,21 @@ export default {
     getSelectedRoom(vm.roomId).then(function(data) {
       vm.roomData = data[0];
     });
+    getUser(vm.roomId).then(function(data) {
+      vm.user = data[0].email;
+      vm.password = data[0].password;
+    });
   },
   methods: {
     sendEmail(e) {
       try {
-        emailjs.sendForm(
-          "service_gqqo60m",
-          "template_ykmyzgj",
-          e.target,
-          "user_OvCYTVO2E6wAnouSJYryv",
-          {
-            email: this.email,
-            user: this.user,
-            password: this.password,
-          }
-        );
-      } catch (error) {
-        console.log("Failed", { error });
+        emailjs.sendForm('service_gqqo60m', 'template_ykmyzgj', e.target,
+        'user_OvCYTVO2E6wAnouSJYryv', {
+          email: this.email
+        })
+        console.log("enviado")
+      } catch(error) {
+          console.log("Failed", {error})
       }
     },
   },

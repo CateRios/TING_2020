@@ -221,10 +221,17 @@ export default {
         email: this.email,
       }
 
+      setClient(this.roomData.id, clientData).then(function (client_id) {
 
-      setClient(this.roomData.id, clientData).then(function () {
+        let dates = {
+          from: this.roomData.id,
+          to: this.firstName,
+          client: client_id,
+        }
 
-        bookRoom(this.roomData.id).then(function (res) {
+        this.roomData.occupationsDates.push(dates)
+
+        bookRoom(this.roomData.id,this.roomData.occupationsDates).then(function (res) {
 
           console.log(res)
 
@@ -259,6 +266,7 @@ export default {
     },
   },
 };
+
 </script>
 
 <style scoped>

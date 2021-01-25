@@ -121,7 +121,6 @@ export default {
       roomData: [{
         amount: "",
         description: "",
-        carouselData: [{},{},{}],
         include: "",
         name: "",
         services: "",
@@ -150,7 +149,6 @@ export default {
             password: this.password,
           }
         );
-        console.log("Success");
       } catch (error) {
         console.log("Failed", { error });
       }

@@ -44,8 +44,17 @@ let getSelectedRoom = async function (index){
     return room;
 }
 
+let bookRoom = async function(room_id, dates){
+
+    const res = await roomsCollection.update({occupationsDates: dates});
+
+    console.log(res);
+
+}
+
 export  {
     setRoom,
     getRooms,
-    getSelectedRoom
+    getSelectedRoom,
+    bookRoom
 }

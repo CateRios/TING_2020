@@ -152,9 +152,9 @@ export default {
 
             if (roomData.peopleNumber === vm.people) {
 
-              for (let i = 0; i < roomData.dates.length; i++) {
-                let startDate = moment(new Date(roomData.dates[i].from)).subtract(1, 'days');
-                let endDate = moment(new Date(roomData.dates[i].to)).add(1, 'days');
+              for (let dates of roomData.occupationsDates) {
+                let startDate = moment(new Date(dates.from)).subtract(1, 'days');
+                let endDate = moment(new Date(dates.to)).add(1, 'days');
 
                 if (!moment(vm.fromDate).isBetween(startDate, endDate) || !moment(vm.toDate).isBetween(startDate, endDate)) {
                   if (!startDate.isBetween(moment(vm.fromDate), moment(vm.toDate)) && !endDate.isBetween(moment(vm.fromDate), moment(vm.toDate))) {
@@ -170,6 +170,7 @@ export default {
 
           }
       );
+      console.log(vm.roomsData)
 
     }
   },
@@ -210,7 +211,6 @@ export default {
       vm.roomsDataCopy = rooms;
 
     });
-
 
   }
 }

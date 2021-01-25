@@ -1,110 +1,142 @@
 <template>
-  <div>
-    <!-- Rooms -->
-    <v-container>
-      <RoomCardBook v-bind:room-data="roomData" />
-    </v-container>
 
-    <v-container fluid fill-height class="container">
-      <v-layout align-center justify-center>
-        <v-flex xs12 sm8 md4>
-          <!-- Card -->
-          <v-card
-            class="elevation-5 ma-5 pa-5"
-            color="rgb(255, 255, 255, 0.825)"
-          >
-            <!-- Title -->
-            <v-card-title class="justify-center accent--text title"
-              >Book Form</v-card-title
-            >
+  <v-container class="pa-5">
 
-            <!-- Form -->
-            <v-card-text class="pa-3">
-              <v-form
-                ref="form"
-                v-model="valid"
-                lazy-validation
-                @submit.prevent="sendEmail"
-              >
-                <!-- User field -->
-                <v-text-field
-                  label="First Name"
-                  type="text"
-                  color="accent"
-                  required
-                />
+    <!-- Alert -->
+    <v-alert dense text :type="transaction.type" v-if="transaction.value"><strong> {{ transaction.code }} !</strong> {{ transaction.message}}</v-alert>
 
-                <v-text-field
-                  label="Second Name"
-                  type="text"
-                  color="accent"
-                  required
-                />
+    <v-row>
 
-                <v-text-field
-                  label="Phone Number"
-                  type="text"
-                  color="accent"
-                  required
-                />
+      <!--Book form -->
+      <v-col cols="12" md="6">
+        <v-layout align-center justify-center>
+          <v-flex xs12>
 
-                <v-text-field
-                  label="Email"
-                  type="text"
-                  color="accent"
-                  v-model="email"
-                  required
-                />
+            <!-- Card -->
+            <v-card class="pa-3" color="rgb(0, 188, 212, 0.15)">
+              <!-- Title -->
+              <v-card-title class="justify-center accent--text title">Book Form</v-card-title>
 
-                <v-text-field
-                  label="Company"
-                  type="text"
-                  color="accent"
-                  required
-                />
+              <!-- Form -->
+              <v-card-text>
+                <v-form ref="form" v-model="valid" lazy-validation class="ma-2 pa-2">
 
-                <v-text-field
-                  label="Credit Card Number"
-                  type="text"
-                  color="accent"
-                  required
-                />
+                  <!-- First name field -->
+                  <v-text-field
+                      label="First Name"
+                      type="text"
+                      color="accent"
+                      v-model="firstName"
+                      :rules="firstNameRules"
+                      required
+                  />
 
-                <v-text-field
-                  label="Titular Name"
-                  type="text"
-                  color="accent"
-                  required
-                />
+                  <!-- Second name field -->
+                  <v-text-field
+                      label="Second Name"
+                      type="text"
+                      color="accent"
+                      v-model="secondName"
+                      :rules="firstNameRules"
+                      required
+                  />
 
-                <v-text-field
-                  label="Expiration Date"
-                  type="text"
-                  color="accent"
-                  required
-                />
+                  <!-- Phone number field -->
+                  <v-text-field
+                      label="Phone Number"
+                      prepend-icon="mdi-cellphone"
+                      type="text"
+                      color="accent"
+                      v-model="phoneNumber"
+                      :rules="phoneNumbers"
+                      required
+                  />
 
-                <v-text-field
-                  label="Comments"
-                  type="text"
-                  color="accent"
-                  required
-                />
+                  <!-- Email field -->
+                  <v-text-field
+                      label="Email"
+                      prepend-icon="mdi-email"
+                      type="text"
+                      color="accent"
+                      v-model="email"
+                      :rules="emailRules"
+                      required
+                  />
 
-                <v-btn block color="accent" type="submit">Book</v-btn>
-              </v-form>
-            </v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </div>
+                  <!-- Credit card field -->
+                  <v-text-field
+                      label="Credit Card Number"
+                      prepend-icon="mdi-credit-card-outline"
+                      type="text"
+                      color="accent"
+                      v-model="creditCard"
+                      :rules="creditCardRules"
+                      required
+                  />
+
+                  <!-- Titular of credit card field -->
+                  <v-text-field
+                      label="Titular Name"
+                      type="text"
+                      color="accent"
+                      v-model="titularCard"
+                      :rules="titularRules"
+                      required
+                  />
+
+                  <!-- Expiration date of credit card field -->
+                  <v-text-field
+                      label="Expiration Date"
+                      type="text"
+                      color="accent"
+                      v-model="expirationDateCard"
+                      :rules="expirationDateRules"
+                      required
+                  />
+
+                  <!-- CVV of credit card field -->
+                  <v-text-field
+                      label="CVV Date"
+                      type="text"
+                      color="accent"
+                      v-model="cvvCard"
+                      :rules="cvvRules"
+                      required
+                  />
+
+                </v-form>
+
+              </v-card-text>
+
+              <!-- Button -->
+              <v-card-actions>
+                <v-btn block color="accent" :disabled="!valid" @click="bookRoom">Pay and book</v-btn>
+              </v-card-actions>
+
+            </v-card>
+
+          </v-flex>
+        </v-layout>
+      </v-col>
+
+      <!-- Room data -->
+      <v-col cols="12" md="6">
+        <RoomCardBook v-bind:room-data="roomData"/>
+      </v-col>
+
+    </v-row>
+
+  </v-container>
+
 </template>
 
 <script>
+
 import RoomCardBook from "@/components/Room-card-book";
 import emailjs from "emailjs-com";
-import { getSelectedRoom } from "/server/functions/roomFunctions";
+import {getSelectedRoom, bookRoom} from "/server/functions/roomFunctions";
+import { setClient } from "../../server/functions/clientsFunctions";
+
 
 export default {
   name: "Book",
@@ -115,42 +147,89 @@ export default {
   data() {
     return {
       valid: true,
-      email: "",
-      user: "",
-      password: "",
-      roomData: [{
-        amount: "",
-        description: "",
-        include: "",
-        name: "",
-        services: "",
-        peopleNumber: "",
-      }],
-      error: [],
+
+      firstName: '',
+      firstNameRules: [],
+
+      secondName: '',
+      secondNameRules: [],
+
+      phoneNumber: '',
+      phoneNumberRules: [],
+
+      email: '',
+      emailRules: [],
+
+      creditCard: '',
+      creditCardRules: [],
+
+      titularCard: '',
+      titularCardRules: [],
+
+      expirationDateCard: '',
+      expirationDateCardRules: [],
+
+      cvvCard: '',
+      cvvCardRules: [],
+
+      transaction: [],
+      roomData: [],
     };
   },
   created() {
     let vm = this;
-    getSelectedRoom(vm.roomId).then(function(data) {
+    getSelectedRoom(vm.roomId).then(function (data) {
       vm.roomData = data[0];
+      console.log(vm.roomData)
     });
   },
   methods: {
+    bookRoom() {
+
+      //Todo: In the future implement the payment platform
+
+      let clientData = {
+        room_id: this.roomData.id,
+        firstName: this.firstName,
+        secondName: this.secondName,
+        phoneNumber: this.phoneNumber,
+        email: this.email,
+      }
+
+
+      setClient(this.roomData.id, clientData).then(function () {
+
+        bookRoom(this.roomData.id).then(function (res) {
+
+          console.log(res)
+
+          this.transaction = {
+            value: true,
+            type: "success",
+            code: "Booked room",
+            message: "The room was successfully booked. Thank you and we will waiting for you."
+          }
+
+        });
+
+      });
+
+    },
     sendEmail(e) {
       try {
         emailjs.sendForm(
-          "service_gqqo60m",
-          "template_ykmyzgj",
-          e.target,
-          "user_OvCYTVO2E6wAnouSJYryv",
-          {
-            email: this.email,
-            user: this.user,
-            password: this.password,
-          }
+            "service_gqqo60m",
+            "template_ykmyzgj",
+            e.target,
+            "user_OvCYTVO2E6wAnouSJYryv",
+            {
+              email: this.email,
+              user: this.user,
+              password: this.password,
+            }
         );
       } catch (error) {
-        console.log("Failed", { error });
+        console.log("Failed", {error});
       }
     },
   },
@@ -158,9 +237,12 @@ export default {
 </script>
 
 <style scoped>
+
 .title {
   font-family: "Ruluko", sans-serif !important;
   font-size: 200% !important;
   border-bottom: 2px solid #00bcd4;
+  margin: 0 1rem;
 }
+
 </style>

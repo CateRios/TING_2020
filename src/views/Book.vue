@@ -260,7 +260,6 @@ export default {
       this.bookRoom();
 
       try {
-        console.log(vm.email);
         emailjs.sendForm(
           "service_gqqo60m",
           "template_ykmyzgj",

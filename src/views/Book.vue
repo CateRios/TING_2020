@@ -61,6 +61,7 @@
                   <!-- Email field -->
                   <v-text-field
                     label="Email"
+                    name="email"
                     prepend-icon="mdi-email"
                     type="text"
                     color="accent"
@@ -253,21 +254,25 @@ export default {
     },
     sendEmail(e) {
 
+      let vm = this
+
       //Do the client registration before sending credentials
       this.bookRoom();
 
       try {
+        console.log(vm.email);
         emailjs.sendForm(
           "service_gqqo60m",
           "template_ykmyzgj",
           e.target,
           "user_OvCYTVO2E6wAnouSJYryv",
           {
-            email: this.email,
-            user: this.user,
-            password: this.password,
+            email: vm.email,
+            user: vm.user,
+            password: vm.password,
           }
         );
+        
         console.log("enviado");
       } catch (error) {
         console.log("Failed", { error });
